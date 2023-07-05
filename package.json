@@ -1,0 +1,30 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "overrides": {
+    "vue": "latest"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "latest",
+    "@sidebase/nuxt-auth": "^0.6.0-beta.3",
+    "@types/node": "^18",
+    "@vueuse/nuxt": "^10.2.1",
+    "nuxt": "^3.6.1",
+    "nuxt-icon": "^0.4.2",
+    "sass": "^1.63.6",
+    "sass-loader": "^13.3.2"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^0.4.11",
+    "mongoose": "^7.3.1",
+    "pinia": "^2.1.4",
+    "primevue": "^3.29.2"
+  }
+}
