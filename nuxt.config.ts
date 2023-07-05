@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   auth: {
-    baseURL: process.env.AUTH_ORIGIN,
+    origin: 'https://serene-profiterole-c5f69b.netlify.app',
     globalAppMiddleware: true,
   },
   runtimeConfig: {
