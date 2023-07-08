@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faktúra</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      text-decoration:none;
+      font-family: inherit;
+    }
+    body {
+      font-family: system-ui;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    div.wrapper {
+      margin-inline: auto;
+      width: min(100%, 600px);
+      min-height: 100vh;
+    }
+    header {
+      padding: 30px 20px;
+      border-bottom: 1px solid black
+    }
+    header section {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    main {
+      padding: 30px 20px;
+    }
+    .invoice-details {
+      margin-top: 20px;
+      display: flex;
+      gap: 30px;
+    }
+    .label {
+      font-weight: bold;
+      white-space: nowrap;
+    }
+    h1 {
+      margin-bottom: 30px;
+    }
+    footer {
+      padding: 30px 20px;
+      border-top: 1px solid black;
+    }
+    .total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: black;
+      color: white;
+      font-weight: 700;
+      padding: 2px 10px;
+    }
+    .total div {
+      font-size: 26px;
+    }
+    .table-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      width: 100%;
+    }
+    .cell {
+      padding: 5px 10px;
+      border-left: 1px solid black;
+      border-bottom: 1px solid black;
+    }
+    .cell:nth-child(4n) {
+      text-align: right;
+      border-right: 1px solid black;
+    }
+    .no-border {
+      border: none!important;
+    }
+    .heading {
+      background-color: black;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <h2>{{ seller.name }}</h2>
+      <div class="label">Dodávateľ</div>
+      <section>
+        <div>
+          <div>{{ seller.id }}</div>
+          <div>{{ seller.address }}</div>
+          <div>{{ seller.contact }}</div>
+        </div>
+      </section>
+    </header>
+    <main>
+      <section class="billed-to">
+        <div class="label">Odberateľ</div>
+        <div>{{ buyer.name }}</div>
+        <div>{{ buyer.id }}</div>
+        <div>{{ buyer.address }}</div>
+      </section>
+      <section class="invoice-details">
+        <div class="invoice-info">
+          <h1 class="title">FAKTÚRA</h1>
+          <div class="label">Číslo faktúry</div>
+          <div>{{ invoice_id }}</div>
+          <div class="label">Dátum faktúrovania</div>
+          <div>{{ invoice_issue_date }}</div>
+          <div class="label">Dátum splatnosti</div>
+          <div>{{ invoice_due_date }}</div>
+        </div>
+        <div class="table">
+          <div class="table-grid">
+            <div class="cell heading">Položka</div>
+            <div class="cell heading">Popis</div>
+            <div class="cell heading">Množstvo</div>
+            <div class="cell heading">Cena</div>
+            {{ items }}
+            <div class="cell no-border">&nbsp;</div>
+            <div class="cell no-border">&nbsp;</div>
+            <div class="cell no-border">Všetko</div>
+            <div class="cell no-border">{{ tax_free_price }} &euro;</div>
+            <div class="cell no-border">&nbsp;</div>
+            <div class="cell no-border">&nbsp;</div>
+            <div class="cell no-border">Výška DPH</div>
+            <div class="cell no-border">{{ tax_rate }}</div>
+            <div class="cell no-border">&nbsp;</div>
+            <div class="cell no-border">&nbsp;</div>
+            <div class="cell no-border">DPH</div>
+            <div class="cell no-border">{{ tax_total }} &euro;</div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="total">
+        <span>Celková suma k úhrade</span>
+        <div>{{ total_price }} &euro;</div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

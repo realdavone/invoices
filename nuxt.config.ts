@@ -1,8 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   auth: {
-    origin: 'https://serene-profiterole-c5f69b.netlify.app',
-    globalAppMiddleware: true,
+    globalAppMiddleware: false,
   },
   runtimeConfig: {
     databaseUri: process.env.DATABASE,
@@ -21,7 +20,12 @@ export default defineNuxtConfig({
     "primevue/resources/themes/md-dark-indigo/theme.css",
     "primevue/resources/primevue.css"
   ],
-  build: { transpile: ["primevue"] },
+  build: {
+    transpile: [
+      'primevue',
+      'vue-toastification'
+    ]
+  },
   modules: [
     '@vueuse/nuxt',
     '@pinia/nuxt',

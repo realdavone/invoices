@@ -6,12 +6,13 @@
       </div>
       <div class="auth">
         <div v-if="status === 'authenticated'" class="user">
-          <span>{{ data.user.name }}</span>
-          <img :src="data.user.image" />
-          <ButtonCTA @click="signOut">Odhlásiť sa</ButtonCTA>
+          <img :src="data.user.image" @click="showUserMenu" draggable="false"/>
+          <Transition name="fade">
+            <UserMenu v-if="isUserMenuShown" @close="isUserMenuShown = false" />
+          </Transition>
         </div>
         <NuxtLink v-else to="/login">
-          <ButtonCTA icon="uiw:user">Login</ButtonCTA>
+          <Button icon="uiw:user">Prihlásiť sa</Button>
         </NuxtLink>
       </div>
     </div>
@@ -19,13 +20,20 @@
 </template>
 
 <script setup>
-const { status, data, signOut } = useAuth()
+import { ref } from 'vue'
+
+const { status, data } = useAuth()
+
+const isUserMenuShown = ref(false)
+
+function showUserMenu() {
+  isUserMenuShown.value = true
+}
 </script>
 
 <style lang="scss" scoped>
 header {
-  height: 80px;
-
+  height: 90px;
   .inner {
     height: 100%;
     display: flex;
@@ -39,15 +47,26 @@ header {
         align-items: center;
         justify-content: space-between;
         gap: 10px;
+        position: relative;
 
         img {
-          width: 30px;
-          height: 30px;
+          width: 40px;
+          height: 40px;
           border-radius: 50%;
-
+          cursor: pointer;
         }
       }
     }
   }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      text-decoration:none;
+      font-family: inherit;
+    }
+    body {
+      font-family: system-ui;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    div.wrapper {
+      margin-inline: auto;
+      width: min(100%, 600px);
+      min-height: 100vh;
+    }
+    header {
+      padding: 30px 20px;
+      border-bottom: 1px solid black
+    }
+    header section {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    main {
+      padding: 30px 20px;
+    }
+    .invoice-details {
+      margin-top: 20px;
+      display: flex;
+      gap: 30px;
+    }
+    .label {
+      font-weight: bold;
+      white-space: nowrap;
+    }
+    .table {
+      width: 100%;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    thead{
+      background-color: black;
+      color: white
+    }
+    th, td {
+      padding: 5px 10px;
+      text-align: left;      
+    }
+    tr td:last-child, tr th:last-child{
+      text-align: right;
+    }
+    tr:not(.summary) th,tr:not(.summary) td {
+      border: 1px solid black;
+    }
+    tr.summary td:nth-child(1) {
+      text-align: right;
+    }
+    h1 {
+      margin-bottom: 30px;
+    }
+    footer {
+      padding: 30px 20px;
+      border-top: 1px solid black;
+    }
+    .total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: black;
+      color: white;
+      font-weight: 700;
+      padding: 2px 10px;
+    }
+    .total div {
+      font-size: 26px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <h2>Meno Priezvisko</h2>
+      <div class="label">Dodávateľ</div>
+      <section>
+        <div>
+          <div>ADresa</div>
+          <div>ADresa</div>
+          <div>ADresa</div>
+        </div>
+        <div>
+          <div>ADresa</div>
+          <div>ADresa</div>
+          <div>ADresa</div>
+        </div>
+      </section>
+    </header>
+    <main>
+      <section class="billed-to">
+        <div class="label">Odberateľ</div>
+        <div>Klient</div>
+        <div>ADresa</div>
+        <div>Fakturovane</div>
+      </section>
+      <section class="invoice-details">
+        <div class="invoice-info">
+          <h1 class="title">FAKTÚRA</h1>
+          <div class="label">Číslo faktúry</div>
+          <div>072023</div>
+          <div class="label">Dátum faktúrovania</div>
+          <div>1.1.2024</div>
+          <div class="label">Dátum splatnosti</div>
+          <div>1.1.2024</div>
+        </div>
+        <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th>Položka</th>
+                <th>Popis</th>
+                <th>Množstvo</th>
+                <th>Cena</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Služba 1</td>
+                <td>Popis</td>
+                <td>1ks</td>
+                <td>300 &euro;</td>
+              </tr>
+              <tr>
+                <td>Služba 1</td>
+                <td>Popis</td>
+                <td>1ks</td>
+                <td>400 &euro;</td>
+              </tr>
+              <tr class="summary">
+                <td colspan="3">Všetko</td>
+                <td>700 &euro;</td>
+              </tr>
+              <tr class="summary">
+                <td colspan="3">Výška DPH</td>
+                <td>21%</td>
+              </tr>
+              <tr class="summary">
+                <td colspan="3">DPH</td>
+                <td>210 &euro;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="total">
+        <span>Celková suma</span>
+        <div>1000 &euro;</div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

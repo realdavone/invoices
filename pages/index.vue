@@ -1,6 +1,6 @@
 <template>
   <div>
-    Vitajte na easyInvoice
+    <NuxtLink to="/invoice/new">Nova faktura</NuxtLink>
   </div>
 </template>
 

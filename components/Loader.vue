@@ -2,11 +2,26 @@
   <div class="loader"></div>
 </template>
 
+<script setup>
+import { computed } from 'vue'
+
+const props = defineProps({
+  height: {
+    type: Number,
+    default: 20
+  }
+})
+
+const height = computed(() => `${props.height}px`)
+const borderThickness = computed(() => `${(props.height / 10) + 1}px`)
+</script>
+
 <style lang="scss" scoped>
 .loader {
-  width: 20px;
+  max-width: v-bind(height);
+  min-width: v-bind(height);
   aspect-ratio: 1;
-  border: 3px solid #ffffff80;
+  border: v-bind(borderThickness) solid #ffffff80;
   border-top-color: #ffffff;
   border-radius: 50%;
   animation: spin 1s linear infinite;

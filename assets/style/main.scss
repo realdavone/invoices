@@ -8,11 +8,11 @@
 }
 
 :root {
-  --background-clr: #3A3335;
-  --primary-clr: #D81E5B;
-  --secondary-clr: #F0544F;
-  --font-clr-primary: #FDF0D5;
-  --font-clr-secondary: #C6D8D3;
+  --background-clr: 58, 51, 53;
+  --primary-clr: 215, 29, 91;
+  --secondary-clr: 240, 87, 81;
+  --font-clr-primary: 253, 239, 211;
+  --font-clr-secondary: 197, 216, 211;
 }
 
 html {
@@ -20,8 +20,8 @@ html {
 }
 
 body {
-  background-color: var(--background-clr);
-  color: var(--font-clr-primary);
+  background-color: rgb(var(--background-clr));
+  color: rgb(var(--font-clr-primary));
   font-family: 'Open Sans', sans-serif;
 }
 

@@ -1,15 +1,13 @@
 <template>
   <div class="login">
-    <section>
-      <h2>Prihlásiť sa</h2>
-      <ButtonCTA icon="cib:google" @click="signIn('google', { callbackUrl: '/' })">Prihlásiť sa cez Google</ButtonCTA>
+    <section class="form">
+      <h3>Prihlásiť sa</h3>
+      <ButtonGoogle />
     </section>
   </div>
 </template>
 
 <script setup>
-const { signIn } = useAuth()
-
 definePageMeta({
   layout: 'viewonly',
   auth: {
@@ -18,9 +16,7 @@ definePageMeta({
   },
 })
 
-useHead({
-  title: 'Login',
-})
+useHead({ title: 'Login' })
 </script>
 
 <style lang="scss" scoped>
@@ -28,5 +24,14 @@ useHead({
   min-height: 100vh;
   display: grid;
   place-items: center;
+
+  .form {
+    box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
 }
 </style>
