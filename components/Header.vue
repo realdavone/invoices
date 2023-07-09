@@ -2,7 +2,7 @@
   <header>
     <div class="container inner">
       <div class="logo">
-        <Logo />
+        <NuxtLink to="/"><Logo /></NuxtLink>
       </div>
       <div class="auth">
         <div v-if="status === 'authenticated'" class="user">

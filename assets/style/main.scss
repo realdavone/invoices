@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 *, *::after, *::before{
   margin: 0;
@@ -22,7 +22,7 @@ html {
 body {
   background-color: rgb(var(--background-clr));
   color: rgb(var(--font-clr-primary));
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .container {

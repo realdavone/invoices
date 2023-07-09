@@ -5,21 +5,25 @@
       <Fieldset legend="Predajca">
         <div class="inputs">
           <span class="p-float-label">
-            <InputText id="seller-name" v-model="form.seller.name" type="text" required />
+            <InputText :disabled="useSellerFromDatabase" id="seller-name" v-model="form.seller.name" type="text" required />
             <label for="seller-name">Meno predajcu</label>
           </span>
           <span class="p-float-label">
-            <InputText id="seller-id" v-model="form.seller.id" type="text" required />
+            <InputText :disabled="useSellerFromDatabase" id="seller-id" v-model="form.seller.id" type="text" required />
             <label for="seller-id">ID predajcu</label>
           </span>
           <span class="p-float-label">
-            <InputText id="seller-address" v-model="form.seller.address" type="text" required />
+            <InputText :disabled="useSellerFromDatabase" id="seller-address" v-model="form.seller.address" type="text" required />
             <label for="seller-address">Adresa predajcu</label>
           </span>
           <span class="p-float-label">
-            <InputText id="seller-contact" v-model="form.seller.contact" type="text" required />
+            <InputText :disabled="useSellerFromDatabase" id="seller-contact" v-model="form.seller.contact" type="text" required />
             <label for="seller-contact">Kontakt predajcu</label>
           </span>
+        </div>
+        <div class="checkbox">
+          <InputSwitch :disabled="useSellerFromDatabase === null" inputId="seller-toggle" :modelValue="useSellerFromDatabase" @update:modelValue="handleSellerToggle" />
+          <label for="seller-toggle">Použiť moje uložené údaje</label>
         </div>
       </Fieldset>
 
@@ -27,15 +31,15 @@
         <div class="inputs">
           <span class="p-float-label">
             <InputText id="buyer-name" v-model="form.buyer.name" required />
-            <label for="buyer-name">Meno predajcu</label>
+            <label for="buyer-name">Meno kupujúceho</label>
           </span>
           <span class="p-float-label">
             <InputText id="buyer-id" v-model="form.buyer.id" required />
-            <label for="buyer-id">ID predajcu</label>
+            <label for="buyer-id">ID kupujúceho</label>
           </span>
           <span class="p-float-label">
             <InputText id="buyer-address" v-model="form.buyer.address" required />        
-            <label for="buyer-address">Adresa predajcu</label>
+            <label for="buyer-address">Adresa kupujúceho</label>
           </span>
         </div>
       </Fieldset>
@@ -67,24 +71,24 @@
                 <label for="item-description">Popis položky</label>
               </span>
               <span class="p-float-label">
-                <InputNumber id="item-quantity" v-model="item.quantity" required :useGrouping="false" />
+                <InputNumber id="item-quantity" v-model="item.quantity" :useGrouping="false" required />
                 <label for="item-quantity">Množstvo</label>
               </span>
               <span class="p-float-label">
                 <InputNumber id="item-price" v-model="item.price" mode="currency" currency="EUR" required />
                 <label for="item-price">Cena</label>
               </span>
-              <Button @click="removeItem(index)" type="button" variation="destructive" style="align-self: center;margin-left: auto;">&times;</Button>
+              <button v-if="index !== 0" @click="removeItem(index)" type="button" style="align-self: center;margin-left: auto; background-color: transparent;font-size: 2rem;">&times;</button>
             </div>
           </template>
           <p v-else>
             Nie sú tu žiadne položky.
           </p>
-          <Button @click="handleAddItem" type="button" style="align-self: flex-end;">Pridaj položku</Button>
+          <Button @click="handleAddItem" type="button" variation="secondary" style="align-self: flex-end;">Pridaj položku</Button>
         </div>        
       </Fieldset>
 
-      <Button style="align-self: flex-end;" :loading="loading">Vygenerovať faktúru</Button>
+      <Button style="align-self: flex-end;" :loading="loading" variation="success">Vygenerovať faktúru</Button>
     </form>
   </section>
 </template>
@@ -94,11 +98,21 @@ import { ref } from 'vue'
 
 const { data } = await useFetch('/api/me')
 
-const form = ref({ seller: {}, buyer: {}, does_pay_tax: false })
+const generatedId = new Intl.DateTimeFormat('en-US', { month: '2-digit', year: 'numeric' }).format(new Date()).replace(/\D/g, '')
+
+const form = ref({
+  seller: {},
+  buyer: {},
+  does_pay_tax: false,
+  invoice_id: generatedId,
+  items: [{}]
+})
 const loading = ref(false)
+const useSellerFromDatabase = ref(null)
 
 if(data.value?.user !== null) {
   form.value.seller = data.value.user
+  useSellerFromDatabase.value = true
 }
 
 function handleAddItem() {
@@ -106,7 +120,9 @@ function handleAddItem() {
 }
 
 function removeItem(index) {
-  (form.value.items ??= []).splice(index, 1)
+  if(form.value.items?.length === 1) return
+
+  form.value.items?.splice(index, 1)
 }
 
 async function handleSubmit() {
@@ -120,7 +136,7 @@ async function handleSubmit() {
     const url = URL.createObjectURL(blob)
     const link = document.createElement('a')
     link.href = url
-    link.download = 'file.pdf'
+    link.download = `${rawForm.invoice_id}.pdf`
     document.body.appendChild(link)
     link.click()
     URL.revokeObjectURL(url)
@@ -130,6 +146,15 @@ async function handleSubmit() {
   } finally {
     loading.value = false
   }
+}
+
+function handleSellerToggle(value) {
+  if(!value) {
+    form.value.seller = {}
+  } else {
+    form.value.seller = data.value.user
+  }
+  useSellerFromDatabase.value = value
 }
 
 definePageMeta({

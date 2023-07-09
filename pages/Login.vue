@@ -9,6 +9,7 @@
 
 <script setup>
 definePageMeta({
+  middleware: ['auth'],
   layout: 'viewonly',
   auth: {
     unauthenticatedOnly: true,

@@ -1,25 +1,26 @@
 <template>
   <section>
-    <h1>Môj profil</h1>
-    <form @submit.prevent="handleSubmit">
-      <span class="p-float-label">
-        <InputText id="seller-name" v-model="form.name" type="text" required />
-        <label for="seller-name">Moje obchodné meno</label>
-      </span>
-      <span class="p-float-label">
-        <InputText id="seller-id" v-model="form.id" type="text" required />
-        <label for="seller-id">Moje obchodné ID</label>
-      </span>
-      <span class="p-float-label">
-        <InputText id="seller-address" v-model="form.address" type="text" required />
-        <label for="seller-address">Moja obchodná adresa</label>
-      </span>
-      <span class="p-float-label">
-        <InputText id="seller-contact" v-model="form.contact" type="text" required />
-        <label for="seller-contact">Kontakt na mňa</label>
-      </span>
-      <Button>{{ data.user ? 'Upraviť' : 'Vytvoriť' }}</Button>
-    </form>
+    <Fieldset legend="Môj profil">
+      <form @submit.prevent="handleSubmit">
+        <span class="p-float-label">
+          <InputText id="seller-name" v-model="form.name" type="text" required />
+          <label for="seller-name">Moje obchodné meno</label>
+        </span>
+        <span class="p-float-label">
+          <InputText id="seller-id" v-model="form.id" type="text" required />
+          <label for="seller-id">Moje obchodné ID</label>
+        </span>
+        <span class="p-float-label">
+          <InputText id="seller-address" v-model="form.address" type="text" required />
+          <label for="seller-address">Moja obchodná adresa</label>
+        </span>
+        <span class="p-float-label">
+          <InputText id="seller-contact" v-model="form.contact" type="text" required />
+          <label for="seller-contact">Kontakt na mňa</label>
+        </span>
+        <Button>{{ data.user ? 'Upraviť' : 'Vytvoriť' }}</Button>
+      </form>
+    </Fieldset>
   </section>
 </template>
 
@@ -38,7 +39,7 @@ if(data.value.user) {
 async function handleSubmit() {
   submitting.value = true
 
-  try{
+  try {
     await $fetch('/api/me', {
       method: data.value.user ? 'PUT' : 'POST',
       body: form.value

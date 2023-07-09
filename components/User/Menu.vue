@@ -2,7 +2,7 @@
   <div ref="menu" class="user-menu">
     <div class="name">{{ data.user.name }}</div>
     <NuxtLink to="/profile" @click="emit('close')">Môj profil</NuxtLink>
-    <button @click.stop="signOut">
+    <button @click.stop="signOut({ callbackUrl: '/', redirect: false })">
       <Icon name="material-symbols:logout" />
       <span>Odhlásiť</span>
     </button>
