@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   auth: {
     globalAppMiddleware: false,
+    baseURL: process.env.AUTH_ORIGIN,
   },
   runtimeConfig: {
     databaseUri: process.env.DATABASE,
